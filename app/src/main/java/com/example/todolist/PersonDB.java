@@ -11,8 +11,8 @@ import java.util.List;
 
 public class PersonDB extends SQLiteOpenHelper {
 
-    public PersonDB(Context context,String table){
-        super(context,table,null,1 );
+    public PersonDB(Context context){
+        super(context,"person.db",null,1 );
     }
 
     @Override
