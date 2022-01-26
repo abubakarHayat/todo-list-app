@@ -7,7 +7,8 @@ public class TaskHolderData {
 
     public TaskHolderData(){}
 
-    public TaskHolderData(String task){
+    public TaskHolderData(int id,String task){
+        this.id = id;
         this.task = task;
     }
 
