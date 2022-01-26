@@ -37,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
                 edtTxtPassS = findViewById(R.id.edtTxtPasswordS);
                 String uName = edtTxtUnameS.getText().toString().trim();
                 String pass = edtTxtPassS.getText().toString().trim();
-                if(uName.length() < 4 || pass.length() <4 ){
+                if(uName.length() < 4 || pass.length() < 4 ){
                     Toast.makeText(getApplicationContext(),
                             "Enter valid Username and Password", Toast.LENGTH_SHORT);
                 }else{
