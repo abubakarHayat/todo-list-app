@@ -23,4 +23,6 @@ public class TaskHolderDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + "taskHolder.db");
         onCreate(db);
     }
+
+
 }
