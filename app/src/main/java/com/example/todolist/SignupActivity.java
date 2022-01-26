@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class SignupActivity extends AppCompatActivity {
 
     Button btnBack;
-    Button btnSingup;
+    Button btnSignup;
     EditText edtTxtUnameS;
     EditText edtTxtPassS;
     @Override
@@ -21,7 +21,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         btnBack = findViewById(R.id.btnBackS);
-        btnSingup = findViewById(R.id.btnSignupS);
+        btnSignup = findViewById(R.id.btnSignupS);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        btnSingup.setOnClickListener(new View.OnClickListener() {
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 edtTxtUnameS = findViewById(R.id.edtTxtNameS);

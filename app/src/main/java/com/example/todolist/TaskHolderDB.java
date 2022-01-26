@@ -11,8 +11,9 @@ import java.util.List;
 
 public class TaskHolderDB extends SQLiteOpenHelper {
 
-    public TaskHolderDB(Context context, String table){
-        super(context,table,null,1 );
+    public TaskHolderDB(Context context){
+
+        super(context,"taskHolder.db",null,1 );
     }
 
     @Override
