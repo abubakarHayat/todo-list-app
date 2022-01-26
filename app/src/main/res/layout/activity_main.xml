@@ -39,5 +39,5 @@
         android:text="Button"
         app:layout_constraintEnd_toEndOf="@+id/edtTxtPassword"
         app:layout_constraintStart_toStartOf="@+id/edtTxtPassword"
-        tools:layout_editor_absoluteY="266dp" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>
