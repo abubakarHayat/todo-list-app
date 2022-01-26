@@ -13,12 +13,12 @@ public class TaskHolderDB extends SQLiteOpenHelper {
 
     public TaskHolderDB(Context context){
 
-        super(context,"taskHolder.db",null,1 );
+        super(context,"taskholder",null,1 );
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE taskHolder.db ( ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+        String createTable = "CREATE TABLE taskholder ( ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " task TEXT NOT NULL)";
 
         db.execSQL(createTable);
@@ -26,7 +26,7 @@ public class TaskHolderDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + "taskHolder.db");
+        db.execSQL("DROP TABLE IF EXISTS " + "taskholder");
         onCreate(db);
     }
 
@@ -35,13 +35,13 @@ public class TaskHolderDB extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put("username", tk.getTask());
-        long result = db.insert("taskHolder.db", null,cv);
+        long result = db.insert("taskholder", null,cv);
         db.close();
         return result;
     }
     public boolean deleteOne(TaskHolderData tk){
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteRecord = "DELETE FROM taskHolder.db WHERE id =" + tk.getId();
+        String deleteRecord = "DELETE FROM taskholder WHERE id =" + tk.getId();
         Cursor cursor = db.rawQuery(deleteRecord,null);
         if(cursor.moveToFirst()){
             cursor.close();
@@ -55,7 +55,7 @@ public class TaskHolderDB extends SQLiteOpenHelper {
     }
     public List<TaskHolderData> getAll(){
         List<TaskHolderData> retList = new ArrayList<>();
-        String readData = "SELECT * FROM taskHolder.db";
+        String readData = "SELECT * FROM taskholder";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(readData,null);
         if(cursor.moveToFirst()){

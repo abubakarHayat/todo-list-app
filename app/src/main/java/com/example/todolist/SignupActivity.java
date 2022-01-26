@@ -39,7 +39,7 @@ public class SignupActivity extends AppCompatActivity {
                 String pass = edtTxtPassS.getText().toString().trim();
                 if(uName.length() < 4 || pass.length() < 4 ){
                     Toast.makeText(getApplicationContext(),
-                            "Enter valid Username and Password", Toast.LENGTH_SHORT);
+                            "Enter valid Username and Password", Toast.LENGTH_SHORT).show();
                 }else{
                     Person p = new Person(0,uName,pass);
                     PersonDB db = new PersonDB(SignupActivity.this);

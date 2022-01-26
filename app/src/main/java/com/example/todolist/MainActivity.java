@@ -44,12 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 String pass = edtTxtPass.getText().toString().trim();
                 if(uName.length() < 4 || pass.length() <4 ){
                     Toast.makeText(getApplicationContext(),
-                            "Enter valid Username and Password", Toast.LENGTH_SHORT);
+                            "Enter valid Username and Password", Toast.LENGTH_SHORT).show();
                 }else{
                     Person p = new Person(0,uName,pass);
                     if(authUser(p)){
                         Intent i = new Intent(MainActivity.this,TaskHolder.class);
                         startActivity(i);
+
                     }
                 }
             }
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         List<Person> personList = new ArrayList<>();
         personList = db.getAll();
         for(Person p: personList){
-            if(p.getuName().equals(person.getuName()) && p.getPassword().equals(person.getPassword())){
+            if(((String)p.getuName()).equals(person.getuName()) && ((String)p.getPassword()).equals(person.getPassword())){
                 return true;
             }
         }

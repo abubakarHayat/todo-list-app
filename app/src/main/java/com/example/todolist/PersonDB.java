@@ -17,15 +17,15 @@ public class PersonDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE person.db ( ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " username TEXT NOT NULL, password TEXT NOT NULL)";
+        String createTable = "CREATE TABLE persons ( id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " username TEXT, password TEXT)";
 
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + "person.db");
+        db.execSQL("DROP TABLE IF EXISTS " + "persons");
         onCreate(db);
     }
 
@@ -35,14 +35,14 @@ public class PersonDB extends SQLiteOpenHelper {
 
         cv.put("username", person.getuName());
         cv.put("password", person.getPassword());
-        long result = db.insert("person.db", null,cv);
+        long result = db.insert("persons", null,cv);
         db.close();
         return result;
     }
 
     public boolean deleteOne(Person p){
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteRecord = "DELETE FROM person.db WHERE id =" + p.getId();
+        String deleteRecord = "DELETE FROM persons WHERE id =" + p.getId();
         Cursor cursor = db.rawQuery(deleteRecord,null);
         if(cursor.moveToFirst()){
             cursor.close();
@@ -56,7 +56,7 @@ public class PersonDB extends SQLiteOpenHelper {
     }
     public List<Person> getAll(){
         List<Person> retList = new ArrayList<>();
-        String readData = "SELECT * FROM person.db";
+        String readData = "SELECT * FROM persons";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(readData,null);
         if(cursor.moveToFirst()){
