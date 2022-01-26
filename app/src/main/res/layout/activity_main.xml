@@ -10,11 +10,11 @@
         android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="16dp"
         android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="@+id/edtTxtPassword"
         app:layout_constraintStart_toStartOf="@+id/edtTxtPassword"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <EditText
         android:id="@+id/edtTxtName"
@@ -27,7 +27,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/edtTxtPassword"
@@ -40,7 +41,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtName" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtName"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/btnLogin"
