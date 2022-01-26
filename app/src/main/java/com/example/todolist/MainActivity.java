@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnLogin;
@@ -43,13 +46,25 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Enter valid Username and Password", Toast.LENGTH_SHORT);
                 }else{
-
+                    Person p = new Person(0,uName,pass);
+                    if(authUser(p)){
+                        Intent i = new Intent(MainActivity.this,TaskHolder.class);
+                        startActivity(i);
+                    }
                 }
             }
         });
     }
 
     public boolean authUser(Person person){
-        PersonDB db;
+        PersonDB db = new PersonDB(MainActivity.this);
+        List<Person> personList = new ArrayList<>();
+        personList = db.getAll();
+        for(Person p: personList){
+            if(p.getuName().equals(person.getuName()) && p.getPassword().equals(person.getPassword())){
+                return true;
+            }
+        }
+        return false;
     }
 }
