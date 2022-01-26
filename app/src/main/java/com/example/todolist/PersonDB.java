@@ -25,13 +25,14 @@ public class PersonDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addOne(Person person){
+    public long addOne(Person person){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("username", person.getuName());
         cv.put("password", person.getPassword());
-        db.insert("person.db", null,cv);
+        long result = db.insert("person.db", null,cv);
         db.close();
+        return result;
     }
 }

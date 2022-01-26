@@ -1,5 +1,6 @@
 package com.example.todolist;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,5 +25,18 @@ public class TaskHolderDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public long addOne(TaskHolderData tk){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        cv.put("username", tk.getTask());
+        long result = db.insert("taskHolder.db", null,cv);
+        db.close();
+        return result;
+    }
+    public void deleteOne(TaskHolderData tk){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String deleteRecord = "DELETE FROM taskHolder.db WHERE ID =" + tk.;
+
+    }
 }
