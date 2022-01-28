@@ -34,12 +34,10 @@ public class TaskHolder extends AppCompatActivity {
         tasks = new ArrayList<String>();
         for(TaskHolderData t: taskData){
             tasks.add(t.getTask());
-            Log.d("THData ", t.getTask());
         }
         taskArr = new ArrayAdapter<String>(TaskHolder.this, android.R.layout.simple_list_item_1
                 ,tasks);
             listViewTask.setAdapter(taskArr);
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,18 +49,14 @@ public class TaskHolder extends AppCompatActivity {
                 }else{
                     td = new TaskHolderData(0,task);
                     tdb.addOne(td);
-                    taskData = tdb.getAll();
-
-                    for(TaskHolderData t: taskData){
-                        tasks.add(t.getTask());
-                    }
+                    tasks.add(task);
                     taskArr = new ArrayAdapter<String>(TaskHolder.this, android.R.layout.simple_list_item_1,tasks);
                     listViewTask.setAdapter(taskArr);
-
 
                 }
             }
         });
 
     }
+
 }
