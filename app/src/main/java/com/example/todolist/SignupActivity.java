@@ -15,12 +15,14 @@ public class SignupActivity extends AppCompatActivity {
     Button btnSignup;
     EditText edtTxtUnameS;
     EditText edtTxtPassS;
+    PersonDB db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         btnBack = findViewById(R.id.btnBackS);
         btnSignup = findViewById(R.id.btnSignupS);
+        db = new PersonDB(SignupActivity.this);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,11 +41,15 @@ public class SignupActivity extends AppCompatActivity {
                 if(uName.length() < 4 || pass.length() < 4 ){
                     Toast.makeText(getApplicationContext(),
                             "Enter valid Username and Password", Toast.LENGTH_SHORT).show();
-                }else{
+                }else if(db.isSame(uName)){
+                    Toast.makeText(getApplicationContext(),
+                            "Username already exists!", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     Person p = new Person(0,uName,pass);
-                    PersonDB db = new PersonDB(SignupActivity.this);
                     db.addOne(p);
                     Toast.makeText(getApplicationContext(),"Signed up successfully!",Toast.LENGTH_SHORT).show();
+                    finish();
 
                 }
             }

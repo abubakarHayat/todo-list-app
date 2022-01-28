@@ -78,4 +78,29 @@ public class PersonDB extends SQLiteOpenHelper {
         return retList;
 
     }
+    public boolean isSame(String user){
+        boolean result = false;
+        String readData = "SELECT * FROM " + PersonUtil.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(readData,null);
+        if(cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String pass = cursor.getString(2);
+                if(user.equals(name)){
+                    result = true;
+                    break;
+                }
+
+
+            }while(cursor.moveToNext());
+
+        }else{
+            //empty list
+        }
+        cursor.close();
+        db.close();
+        return result;
+    }
 }
