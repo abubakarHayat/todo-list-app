@@ -35,10 +35,12 @@ public class TaskHolder extends AppCompatActivity {
         user = getIntent().getStringExtra("user");
         TaskHolderDB tdb = new TaskHolderDB(TaskHolder.this);
         taskData = tdb.getAll(user);
-
+        if(taskData.size()==0)
+            Log.d("GRASS", "ss");
         tasks = new ArrayList<String>();
         for(TaskHolderData t: taskData){
             tasks.add(t.getTask());
+            Log.d("GRASS", "ss");
         }
         taskArr = new ArrayAdapter<String>(TaskHolder.this, android.R.layout.simple_list_item_1
                 ,tasks);

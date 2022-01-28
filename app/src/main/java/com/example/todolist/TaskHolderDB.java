@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +49,16 @@ public class TaskHolderDB extends SQLiteOpenHelper {
     }
     public List<TaskHolderData> getAll(String uname){
         List<TaskHolderData> retList = new ArrayList<>();
-        String readData = "SELECT * FROM " + TaskDataUtil.TABLE_NAME + " WHERE " +
-                TaskDataUtil.COL_UNAME + " = '%" + uname+"%'";
+        /*String readData = "SELECT * FROM " + TaskDataUtil.TABLE_NAME + " WHERE " +
+                TaskDataUtil.COL_UNAME + " = %" + uname+"%";*/
         SQLiteDatabase db = this.getReadableDatabase();
-  /*      Cursor cursor = db.query(TaskDataUtil.TABLE_NAME,
+        Cursor cursor = db.query(TaskDataUtil.TABLE_NAME,
                 new String[]{TaskDataUtil.COL_ID,TaskDataUtil.COL_TASK,TaskDataUtil.COL_UNAME},
-                TaskDataUtil.COL_UNAME + "=?" + uname,
-                null,null,null,null);*/
-         Cursor cursor = db.rawQuery(readData,null);
+                TaskDataUtil.COL_UNAME + " LIKE ?",
+                new String[]{"%"+uname+"%"},null,null,null);
+         //Cursor cursor = db.rawQuery(readData,null);
         if(cursor.moveToFirst()){
+            Log.d("getAll", "Data");
             do{
                 int id = cursor.getInt(0);
                 String taskText = cursor.getString(1);
@@ -67,6 +69,7 @@ public class TaskHolderDB extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }else{
             //empty list
+            Log.d("getAll", "NO Data");
         }
         cursor.close();
         db.close();
