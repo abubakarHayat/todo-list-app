@@ -18,7 +18,7 @@ public class TaskHolderDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE taskholder ( ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+        String createTable = "CREATE TABLE taskholder ( id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " task TEXT NOT NULL)";
 
         db.execSQL(createTable);
@@ -34,7 +34,7 @@ public class TaskHolderDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("username", tk.getTask());
+        cv.put("task", tk.getTask());
         long result = db.insert("taskholder", null,cv);
         db.close();
         return result;
@@ -60,7 +60,7 @@ public class TaskHolderDB extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(readData,null);
         if(cursor.moveToFirst()){
             do{
-                int id = cursor.getInt(0);
+                int id = Integer.parseInt(cursor.getString(0));
                 String taskText = cursor.getString(1);
                 TaskHolderData td = new TaskHolderData(id,taskText);
                 retList.add(td);

@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         Intent i = new Intent(MainActivity.this,TaskHolder.class);
                         startActivity(i);
 
+                    }else{
+                        Toast.makeText(getApplicationContext(),
+                                "Incorrect Username and Password", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -59,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean authUser(Person person){
         PersonDB db = new PersonDB(MainActivity.this);
-        List<Person> personList = new ArrayList<>();
+        List<Person> personList;
         personList = db.getAll();
+        if(personList.size() < 1)
+            return false;
         for(Person p: personList){
             if(((String)p.getuName()).equals(person.getuName()) && ((String)p.getPassword()).equals(person.getPassword())){
                 return true;

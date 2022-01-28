@@ -12,7 +12,7 @@ import java.util.List;
 public class PersonDB extends SQLiteOpenHelper {
 
     public PersonDB(Context context){
-        super(context,"person.db",null,1 );
+        super(context,"persons",null,1 );
     }
 
     @Override
