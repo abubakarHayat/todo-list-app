@@ -12,20 +12,22 @@ import java.util.List;
 public class PersonDB extends SQLiteOpenHelper {
 
     public PersonDB(Context context){
-        super(context,"persons",null,1 );
+        super(context,PersonUtil.DATABASE_NAME,null,1 );
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE persons ( id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " username TEXT, password TEXT)";
+        String createTable = "CREATE TABLE "+ PersonUtil.TABLE_NAME+ " ( "+PersonUtil.COL_ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + PersonUtil.COL_UNAME + "  TEXT NOT NULL,"
+                +PersonUtil.COL_PASSWORD + " TEXT NOT NULL)";
 
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + "persons");
+        db.execSQL("DROP TABLE IF EXISTS " + PersonUtil.TABLE_NAME);
         onCreate(db);
     }
 
@@ -33,16 +35,16 @@ public class PersonDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("username", person.getuName());
-        cv.put("password", person.getPassword());
-        long result = db.insert("persons", null,cv);
+        cv.put(PersonUtil.COL_UNAME, person.getuName());
+        cv.put(PersonUtil.COL_PASSWORD, person.getPassword());
+        long result = db.insert(PersonUtil.TABLE_NAME, null,cv);
         db.close();
         return result;
     }
 
     public boolean deleteOne(Person p){
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteRecord = "DELETE FROM persons WHERE id =" + p.getId();
+        String deleteRecord = "DELETE FROM "+PersonUtil.TABLE_NAME+" WHERE " + PersonUtil.COL_ID + " = " + p.getId();
         Cursor cursor = db.rawQuery(deleteRecord,null);
         if(cursor.moveToFirst()){
             cursor.close();
@@ -56,7 +58,7 @@ public class PersonDB extends SQLiteOpenHelper {
     }
     public List<Person> getAll(){
         List<Person> retList = new ArrayList<>();
-        String readData = "SELECT * FROM persons";
+        String readData = "SELECT * FROM " + PersonUtil.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(readData,null);
         if(cursor.moveToFirst()){
