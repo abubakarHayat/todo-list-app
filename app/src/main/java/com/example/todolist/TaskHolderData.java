@@ -4,12 +4,22 @@ public class TaskHolderData {
 
     private String task;
     private int id;
+    private String uname;
 
     public TaskHolderData(){}
 
-    public TaskHolderData(int id,String task){
+    public TaskHolderData(int id,String task,String uname){
         this.id = id;
         this.task = task;
+        this.uname = uname;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public String getTask() {

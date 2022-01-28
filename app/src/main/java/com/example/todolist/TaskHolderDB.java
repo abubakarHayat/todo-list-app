@@ -18,9 +18,9 @@ public class TaskHolderDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TaskDataUtil.TABLE_NAME + "" +
-                " ( " + TaskDataUtil.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                TaskDataUtil.COL_TASK + " TEXT NOT NULL)";
+        String createTable = "CREATE TABLE " + TaskDataUtil.TABLE_NAME  +
+                " ( " + TaskDataUtil.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TaskDataUtil.COL_TASK + " TEXT NOT NULL, " + TaskDataUtil.COL_UNAME +" TEXT NOT NULL )";
 
         db.execSQL(createTable);
     }
@@ -34,36 +34,34 @@ public class TaskHolderDB extends SQLiteOpenHelper {
     public boolean addOne(TaskHolderData tk){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("task", tk.getTask());
+        cv.put(TaskDataUtil.COL_TASK, tk.getTask());
+        cv.put(TaskDataUtil.COL_UNAME,tk.getUname());
         long result = db.insert(TaskDataUtil.TABLE_NAME, null,cv);
         db.close();
         return (result == -1) ? false:true;
     }
-    public boolean deleteOne(TaskHolderData tk){
+    public boolean deleteOne(String str){
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteRecord = "DELETE FROM " + TaskDataUtil.TABLE_NAME + " WHERE " +
-                TaskDataUtil.COL_ID + " = " + tk.getId();
-        Cursor cursor = db.rawQuery(deleteRecord,null);
-        if(cursor.moveToFirst()){
-            cursor.close();
-            db.close();
-            return true;
-        }
-        cursor.close();
+        db.delete(TaskDataUtil.TABLE_NAME, TaskDataUtil.COL_TASK+"=?",new String[]{str});
         db.close();
-        return false;
-
+        return true;
     }
-    public List<TaskHolderData> getAll(){
+    public List<TaskHolderData> getAll(String uname){
         List<TaskHolderData> retList = new ArrayList<>();
-        String readData = "SELECT * FROM " + TaskDataUtil.TABLE_NAME;
+        String readData = "SELECT * FROM " + TaskDataUtil.TABLE_NAME + " WHERE " +
+                TaskDataUtil.COL_UNAME + " = '%" + uname+"%'";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(readData,null);
+  /*      Cursor cursor = db.query(TaskDataUtil.TABLE_NAME,
+                new String[]{TaskDataUtil.COL_ID,TaskDataUtil.COL_TASK,TaskDataUtil.COL_UNAME},
+                TaskDataUtil.COL_UNAME + "=?" + uname,
+                null,null,null,null);*/
+         Cursor cursor = db.rawQuery(readData,null);
         if(cursor.moveToFirst()){
             do{
                 int id = cursor.getInt(0);
                 String taskText = cursor.getString(1);
-                TaskHolderData td = new TaskHolderData(id,taskText);
+                String user = cursor.getString(2);
+                TaskHolderData td = new TaskHolderData(id,taskText,user);
                 retList.add(td);
 
             }while(cursor.moveToNext());
@@ -73,6 +71,25 @@ public class TaskHolderDB extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return retList;
+
+    }
+    public boolean isSame(String str){
+
+        String readData = "SELECT * FROM " + TaskDataUtil.TABLE_NAME  +
+                " WHERE "  + TaskDataUtil.COL_TASK + " = " +  str;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(readData,null);
+        if(cursor != null){
+            cursor.close();
+            db.close();
+            return true;
+
+        }else{
+            cursor.close();
+            db.close();
+            return false;
+        }
+
 
     }
 }

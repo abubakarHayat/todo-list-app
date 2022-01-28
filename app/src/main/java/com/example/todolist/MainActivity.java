@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
                     Person p = new Person(0,uName,pass);
                     if(authUser(p)){
                         Intent i = new Intent(MainActivity.this,TaskHolder.class);
+                        i.putExtra("user",uName);
                         startActivity(i);
-
                     }else{
                         Toast.makeText(getApplicationContext(),
                                 "Incorrect Username and Password", Toast.LENGTH_SHORT).show();

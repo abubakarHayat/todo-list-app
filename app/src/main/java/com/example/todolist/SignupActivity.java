@@ -43,6 +43,8 @@ public class SignupActivity extends AppCompatActivity {
                     Person p = new Person(0,uName,pass);
                     PersonDB db = new PersonDB(SignupActivity.this);
                     db.addOne(p);
+                    Toast.makeText(getApplicationContext(),"Signed up successfully!",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
